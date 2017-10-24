@@ -19,20 +19,19 @@ def get_key():
 def get_base_url():
     return config.get('Params', 'baseurl')
 
-def post_license(json, code):
+# Posts license to Alma
+def post_license(license):
     url = get_base_url() + '/acq/licenses?apikey=' + get_key()
     print (url)
     headers = {"Content-Type": "application/json"}
-    r = requests.post(url,data=json,headers=headers)
+    r = requests.post(url,data=json.dumps(license),headers=headers)
     print (r.content)
     if r.status_code == 200:
-        print (r.content)
         logging.info('Success update for: ' + url)
     else:
-        print (r.content)
-        logging.info('Failed to post: ' + code)
+        logging.info('Failed to post: ' + license['code'])
 
-
+# Creates license JSON data
 def make_license(row):
     start_date = dateparser.parse(row[5]).strftime('%Y-%m-%d')
     license = {
@@ -46,8 +45,9 @@ def make_license(row):
         'review_status': {'value': row[7].upper(), 'desc' : row[7]}
     }
     print (json.dumps(license))
-    post_license(json.dumps(license),row[0])
+    post_license(license)
 
+# Read new licenses csv file
 def read_csv(licenses):
     f  = open(licenses,'rt')
     try:
@@ -58,7 +58,7 @@ def read_csv(licenses):
     finally:
         f.close()
 
-
+# Get logging and configuration
 logging.basicConfig(filename='status.log',level=logging.DEBUG)
 config = configparser.ConfigParser()
 config.read(sys.argv[1])

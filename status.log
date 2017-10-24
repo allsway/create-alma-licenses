@@ -1,5 +1,0 @@
-DEBUG:requests.packages.urllib3.connectionpool:Starting new HTTPS connection (1): api-na.hosted.exlibrisgroup.com
-DEBUG:requests.packages.urllib3.connectionpool:https://api-na.hosted.exlibrisgroup.com:443 "POST /almaws/v1/acq/licenses?apikey=l7xx668e13de31f740a9b9a04b41713586c0 HTTP/1.1" 405 141
-DEBUG:requests.packages.urllib3.connectionpool:Starting new HTTPS connection (1): api-na.hosted.exlibrisgroup.com
-DEBUG:requests.packages.urllib3.connectionpool:https://api-na.hosted.exlibrisgroup.com:443 "POST /almaws/v1/acq/licenses?apikey=l7xx668e13de31f740a9b9a04b41713586c0 HTTP/1.1" 405 141
-INFO:root:Failed to post: PQ_DesignAppliedArts
