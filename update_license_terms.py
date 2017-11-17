@@ -51,7 +51,7 @@ def update_terms(license, terms):
     for row in terms[1:].itertuples():
         match_found = False
         if str(row[2]) != 'nan' and str(row[2]) != 'NaN' and str(row[2]) != '' and str(row[2]) != 'Please choose a value':
-            if type(row[2]) is str:
+            if type(row[2]) is str and str(row[2]) in ('No', 'Yes', 'Not Applicable', 'Uninterpreted', 'Permitted' , 'Prohibited', 'Silent', 'Calendar day', 'Month', 'Business day', 'Week', 'Automatic','Explicit'):
                 val = row[2].upper()
             else:
                 val = str(row[2])
