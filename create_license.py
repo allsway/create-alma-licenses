@@ -2,12 +2,6 @@
 
 import sys
 import csv
-import pandas as pd
-import numpy as np
-import xlrd
-from pandas import ExcelWriter
-from pandas import ExcelFile
-
 import json
 import dateparser
 import datetime
@@ -41,6 +35,7 @@ def post_license(license):
 # Creates license JSON data
 def make_license(row):
     start_date = dateparser.parse(row[5]).strftime('%Y-%m-%d')
+    #end_date = dateparser.parse(row[6]).strftime('%Y-%m-%d')
     if re.match('[\d]+$',row[4]):
         licensor  = '000000' + row[4]
     else:
@@ -54,6 +49,7 @@ def make_license(row):
         'licensor' : {'value' : licensor.upper(), 'desc': licensor},
         'location' : {'value' : row[6].upper(), 'desc' : row[5]},
         'start_date': start_date + 'Z',
+        # 'end_date : end_date + Z'
         'review_status': {'value': row[7].upper(), 'desc' : row[7]}
     }
     print (json.dumps(license))
