@@ -24,11 +24,13 @@ def get_base_url():
 def put_license(license,code):
     url = get_base_url() + '/acq/licenses/' + code + '?apikey=' + get_key()
     headers = {"Content-Type": "application/xml"}
-    r = requests.put(url,data=ET.tostring(license),headers={"Content-Type" : "application/xml"})
+    r = requests.put(url,data=ET.tostring(license),headers=headers)
     if r.status_code == 200:
         logging.info('Success update for: ' + url)
+        print ('Success')
     else:
         logging.info('Failed to post: ' + code)
+        print ('PostError')
 
 # Returns the XML formatted license
 def get_license(code):
@@ -41,7 +43,6 @@ def get_license(code):
 
 # Create error log file for downlaod
 def check_for_errors(license,code):
-#    print (license['web_service_result']['errorList']['error']['errorCode'])
     with open("error_log.csv", "a") as myfile:
         myfile.write(datetime.datetime.now().strftime("%Y-%m-%d %H:%M") + ' ' +  code + ', ' + license.find('errorList/error/errorMessage').text + '\n')
 
@@ -71,18 +72,21 @@ def update_terms(license, terms):
 # Read new licenses csv file
 def read_csv(terms):
     df = pd.read_excel(terms)
-    code = df.iloc[0,1]
-    license = get_license(code)
-    if license is not None:
-        xml = update_terms(license, df)
-        put_license(xml,code)
+    if df.iloc[0,0] != 'License code:':
+    	print ('FormatError')
     else:
-        print ('Error')
-
-# Get logging and configuration
+    	code = df.iloc[0,1]
+    	license = get_license(code)
+    	if license is not None:
+    		xml = update_terms(license, df)
+    		put_license(xml,code)
+    	else:
+    		print ('CodeError')
+			
+# Get logging and configuration, config file now in a hardcoded file.
 logging.basicConfig(filename='error_report.log',level=logging.DEBUG)
 config = configparser.ConfigParser()
-config.read(sys.argv[1])
-
-licenses = sys.argv[2]
+#config.read(sys.argv[1])
+config.read('config.txt')
+licenses = sys.argv[1]
 read_csv(licenses)
