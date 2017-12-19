@@ -34,22 +34,6 @@
     		<div class="row">
     		
       			<div class="one-half column" style="margin-top: 20%">
-      			  <!--p> Update and create Alma licenses </p>
-
-				  <form action ="" method = "POST" enctype = "multipart/form-data" id="createsubmission">
-					  <div class="row" id="createsubmissionarea">
-						 <label for="kbartfile">Create new licenses from a CSV file:</label>
-							 <input class="button-primary"  type = "file" name = "image" id="create" /><br />
-							 <input name="submitbutton" class="button-primary"  type = "submit"/>
-						 	
-						<div id="createloading" style="display:none"> 
-							<img src="css/ajax-loader.gif"/>
-						</div>
-
-					</div>	
-					 <div id="createdownload"></div>
-			
-				  </form-->
 				    <form action = "" method = "POST" enctype = "multipart/form-data" id="updatesubmission">
 					  <div class="row" id="updatesubmissionarea">
 						 <label for="kbartfile">Update license terms for one license:</label>
@@ -73,48 +57,6 @@
 
 	 $(document).ready(function()
 	{
-			
-		/*$("form#createsubmission").submit(function(e) {
-			if ($("#create").val() === '')
-			{
-				alert('Upload an Excel file');
-			}
-			else
-			{
-				$("#createloading").show();
-				console.log(formData);
-				var url = "license_create.php"; // the script where you handle the form input.
-
-				$.ajax({
-					url: url,
-					type: 'POST',
-					data: new FormData(this),
-					processData: false,
-					contentType: false,
-					success: function(data) {
-						console.log(data);
-						if (data === 'Error') {
-							console.log(data);
-							var str = '<label for="downloadfile">Sorry, there was something invalid in new licenses file. Please try again. </label><a  href="' + data + '" target="_blank" name="download"><a href="handle_licenses.php"><input value="Upload another file" type="button"></a>'
-						}
-						else {
-							var str = '<label for="downloadfile">Your licenses have successfully been created</label><a  href="' + data + '" target="_blank" name="download"><input class="button-primary" value="Download File" type="button"></a> <a href="handle_licenses.php"><input value="Upload another file" type="button"></a>'
-
-						}
-						console.log(data);
-						$("#createsubmissionarea").hide();
-						if ($("#createdownload").html() === ""){
-							$("#createloading").hide();
-							$("#createdownload").append(str);
-						}
-					}
-	
-					});
-	
-			}
-				e.preventDefault();
-				});
-			*/
 			
 			$("form#updatesubmission").submit(function(e) {
 			if ($("#update").val() === '')
